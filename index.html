@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+}
+
+.stopwatch {
+    position: fixed;
+    height: 250px;
+    background: radial-gradient(circle, #4c4c4c, #2f2f2f);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    width: 500px;
+    align-items: center;
+    padding-top: 30px;
+    border-radius: 15px;
+    background-color: black;
+    text-align: center;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 24px;
+    border-radius: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="stopwatch">
+        <h2 style="color: #f1f1f1; font-family: cursive; font-size: 30px;"><b>StopWatch</b></h2>
+        <h1 style="color: #f1f1f1;">00:00:00</h1>
+        <button id="start" style="background-color: green; color: #f1f1f1">Start</button>
+        <button id="stop" style="background-color: red; color: #f1f1f1">Stop</button>
+        <button id="reset" style="background-color: blue; color: #f1f1f1">Reset</button>
+    </div>
+
+    <script>
+        let timer;
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+
+const display = document.querySelector('h1');
+const startButton = document.getElementById('start');
+const stopButton = document.getElementById('stop');
+const resetButton = document.getElementById('reset');
+
+function startStopwatch() {
+    timer = setInterval(() => {
+        seconds++;
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes === 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+        display.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
+}
+
+function stopStopwatch() {
+    clearInterval(timer);
+}
+
+function resetStopwatch() {
+    clearInterval(timer);
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    display.textContent = '00:00:00';
+}
+
+startButton.addEventListener('click', startStopwatch);
+stopButton.addEventListener('click', stopStopwatch);
+resetButton.addEventListener('click', resetStopwatch);
+
+    </script>
+</body>
+</html>
